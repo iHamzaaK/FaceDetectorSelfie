@@ -17,7 +17,6 @@ class FaceDetectorViewController: UIViewController {
     var faceBoundBox : CGRect!
     var isFaceInOverlay = false{
         didSet{
-            
             setupSnapView()
         }
     }
@@ -35,20 +34,24 @@ class FaceDetectorViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        //add overlay in the view
         self.view.addSubview(faceOverlay)
         isFaceInOverlay = false
         setupCamera()
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        //start capture session
         captureSession.startRunning()
     }
     override func viewDidLayoutSubviews() {
+        // snap button in circle shape
         btnSnap.cornerRadius = btnSnap.frame.size.width/2
     }
 }
 
 extension FaceDetectorViewController{
+    //bring snapview to front and unhide it if face is detected. Turns the overlay color to green if the face is in overlay.
     func setupSnapView(){
         DispatchQueue.main.async {
             self.viewSnapBtn.isHidden = !self.isFaceInOverlay
@@ -61,7 +64,7 @@ extension FaceDetectorViewController{
             }
         }
     }
-    
+    // sends cropped image to preview view controller
     func sendImageToPreviewViewController(image: UIImage){
         DispatchQueue.main.async {
             self.didTapOnTakePicture = false
@@ -71,13 +74,14 @@ extension FaceDetectorViewController{
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
-    
+    //sets bool value to true when tapped on snap btn
     @IBAction func didTapOnSnap(){
         didTapOnTakePicture = true
     }
     
+    // facial detection request
     func vnFaceDetectionRequest(cgImage: CGImage){
-        
+        //check if face is detected
         let request = VNDetectFaceRectanglesRequest.init { (req, err) in
             if let err = err{
                 print(Constants.faceDetectionError + ":", err)
@@ -87,6 +91,7 @@ extension FaceDetectorViewController{
                 self.isFaceInOverlay = false
             }
             else{
+                // if face is detected
                 req.results?.forEach({ (res) in
                     guard let faceObservation = res as? VNFaceObservation   else { return }
                     DispatchQueue.main.async {
@@ -101,6 +106,7 @@ extension FaceDetectorViewController{
                 })
             }
         }
+        //instantiate request
         let handler = VNImageRequestHandler.init(cgImage: cgImage, options: [:])
         do {
             try handler.perform([request])
@@ -112,8 +118,11 @@ extension FaceDetectorViewController{
 }
 
 extension FaceDetectorViewController{
+    //capture session setup
     func setupCamera(){
+        //for high definition video output
         captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+        // camera setup for front camera only
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera,
                                                    for: .video,
                                                    position: .front) else {
@@ -123,6 +132,7 @@ extension FaceDetectorViewController{
         beginSession()
     }
     
+    // preview layer which displays camera output
     func setupPreviewLayer(){
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -131,8 +141,10 @@ extension FaceDetectorViewController{
         self.view.layer.insertSublayer(self.previewLayer!, at: 0)
         
     }
+    
     func beginSession(){
         do{
+            // add device input into the capture session
             let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
             captureSession.addInput(captureDeviceInput)
         }catch{
@@ -152,6 +164,7 @@ extension FaceDetectorViewController{
 
 
 extension FaceDetectorViewController : AVCaptureVideoDataOutputSampleBufferDelegate{
+    //delegate method which gives sample buffers of each frame of camera output
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!).oriented(.right).transformed(by: CGAffineTransform(scaleX: -1, y: 1))

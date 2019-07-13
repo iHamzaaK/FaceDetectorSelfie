@@ -44,14 +44,6 @@ class FaceOverlay: UIView {
         ovalLayer.fillColor = UIColor.clear.cgColor
         ovalLayer.strokeColor = overlayBorderColor
         ovalLayer.lineWidth = 5.0
-        // draw layer that fills the view
-        let fillLayer = CAShapeLayer()
-        fillLayer.path = overlayPath.cgPath
-        fillLayer.fillRule = CAShapeLayerFillRule.evenOdd
-        fillLayer.fillColor = UIColor.clear.cgColor
-        // add layers
-//        layer.addSublayer(fillLayer)
-        
         layer.addSublayer(ovalLayer)
     }
     
