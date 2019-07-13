@@ -14,35 +14,38 @@ class FaceDetectorViewController: UIViewController {
 
     var previewLayer : AVCaptureVideoPreviewLayer!
     var captureDevice : AVCaptureDevice!
-    let captureSession = AVCaptureSession()
-    let faceOverlay = FaceOverlay()
     var faceBoundBox : CGRect!
     var isFaceInOverlay = false{
         didSet{
+            
             setupSnapView()
         }
     }
     var didTapOnTakePicture = false
-    
-    @IBOutlet var btnSnap : UIButton!
-    @IBOutlet var viewSnapBtn : UIView!
+    let captureSession = AVCaptureSession()
+    let faceOverlay = FaceOverlay()
     let queue = DispatchQueue(
         label: Constants.dataOutputQueue,
         qos: .userInitiated,
         attributes: [],
         autoreleaseFrequency: .workItem)
+    
+    @IBOutlet var btnSnap : UIButton!
+    @IBOutlet var viewSnapBtn : UIView!
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(faceOverlay)
         isFaceInOverlay = false
         setupCamera()
         
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         captureSession.startRunning()
     }
-
+    override func viewDidLayoutSubviews() {
+        btnSnap.cornerRadius = btnSnap.frame.size.width/2
+    }
 }
 
 extension FaceDetectorViewController{
@@ -50,7 +53,11 @@ extension FaceDetectorViewController{
         DispatchQueue.main.async {
             self.viewSnapBtn.isHidden = !self.isFaceInOverlay
             if self.isFaceInOverlay{
+                self.faceOverlay.overlayBorderColor = UIColor.green.cgColor
                 self.view.bringSubviewToFront(self.viewSnapBtn)
+            }
+            else{
+                self.faceOverlay.overlayBorderColor = UIColor.red.cgColor
             }
         }
     }
@@ -146,7 +153,6 @@ extension FaceDetectorViewController{
 
 extension FaceDetectorViewController : AVCaptureVideoDataOutputSampleBufferDelegate{
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        print("Hello")
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!).oriented(.right).transformed(by: CGAffineTransform(scaleX: -1, y: 1))
         let context:CIContext = CIContext.init(options: nil)

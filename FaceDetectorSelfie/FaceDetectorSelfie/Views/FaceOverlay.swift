@@ -13,7 +13,11 @@ class FaceOverlay: UIView {
     
     let screenBounds = UIScreen.main.bounds
     var overlayFrame: CGRect!
-    
+    var overlayBorderColor = UIColor.red.cgColor{
+        didSet{
+            self.setNeedsDisplay()
+        }
+    }
     
     internal init() {
         super.init(frame: screenBounds)
@@ -38,15 +42,16 @@ class FaceOverlay: UIView {
         let ovalLayer = CAShapeLayer()
         ovalLayer.path = ovalPath.cgPath
         ovalLayer.fillColor = UIColor.clear.cgColor
-        ovalLayer.strokeColor = UIColor.green.cgColor
+        ovalLayer.strokeColor = overlayBorderColor
         ovalLayer.lineWidth = 5.0
         // draw layer that fills the view
         let fillLayer = CAShapeLayer()
         fillLayer.path = overlayPath.cgPath
         fillLayer.fillRule = CAShapeLayerFillRule.evenOdd
-        fillLayer.fillColor = UIColor.black.withAlphaComponent(0).cgColor
+        fillLayer.fillColor = UIColor.clear.cgColor
         // add layers
-        layer.addSublayer(fillLayer)
+//        layer.addSublayer(fillLayer)
+        
         layer.addSublayer(ovalLayer)
     }
     
