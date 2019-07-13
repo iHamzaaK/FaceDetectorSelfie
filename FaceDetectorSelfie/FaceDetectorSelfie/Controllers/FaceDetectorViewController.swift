@@ -59,7 +59,7 @@ extension FaceDetectorViewController{
         DispatchQueue.main.async {
             self.didTapOnTakePicture = false
             self.captureSession.stopRunning()
-            let destinationVC = Utility.getMainStoryboard().instantiateViewController(withIdentifier: Constants.previewVCIdentifier) as! PreviewViewCbontroller
+            let destinationVC = Utility.getMainStoryboard().instantiateViewController(withIdentifier: Constants.previewVCIdentifier) as! PreviewViewController
             destinationVC.image = Utility.cropImage(image, toRect: self.faceOverlay.overlayFrame, viewWidth: self.previewLayer.frame.size.width, viewHeight:  self.previewLayer.frame.size.width)!
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
