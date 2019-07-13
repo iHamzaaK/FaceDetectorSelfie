@@ -11,6 +11,11 @@
 		63BAE6AC22DA4F39007D5369 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63BAE6AA22DA4F39007D5369 /* Main.storyboard */; };
 		63BAE6AE22DA4F3A007D5369 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BAE6AD22DA4F3A007D5369 /* Assets.xcassets */; };
 		63BAE6B122DA4F3A007D5369 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63BAE6AF22DA4F3A007D5369 /* LaunchScreen.storyboard */; };
+		63BAE6BD22DA519B007D5369 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6BC22DA519B007D5369 /* Constants.swift */; };
+		63BAE6BF22DA51B5007D5369 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6BE22DA51B5007D5369 /* UtilityFunctions.swift */; };
+		63BAE6C122DA51E2007D5369 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C022DA51E2007D5369 /* Extensions.swift */; };
+		63BAE6C322DA5223007D5369 /* FaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C222DA5223007D5369 /* FaceOverlay.swift */; };
+		63BAE6C522DA5268007D5369 /* FaceDetectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,11 @@
 		63BAE6AD22DA4F3A007D5369 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63BAE6B022DA4F3A007D5369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63BAE6B222DA4F3A007D5369 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63BAE6BC22DA519B007D5369 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		63BAE6BE22DA51B5007D5369 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		63BAE6C022DA51E2007D5369 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		63BAE6C222DA5223007D5369 /* FaceOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceOverlay.swift; sourceTree = "<group>"; };
+		63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,9 @@
 			children = (
 				63BAE6BB22DA50D8007D5369 /* Storyboard */,
 				63BAE6A622DA4F39007D5369 /* AppDelegate.swift */,
+				63BAE6BC22DA519B007D5369 /* Constants.swift */,
+				63BAE6BE22DA51B5007D5369 /* UtilityFunctions.swift */,
+				63BAE6C022DA51E2007D5369 /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -73,6 +86,7 @@
 		63BAE6B922DA508C007D5369 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -80,6 +94,7 @@
 		63BAE6BA22DA5092007D5369 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				63BAE6C222DA5223007D5369 /* FaceOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -164,7 +179,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BAE6C522DA5268007D5369 /* FaceDetectorViewController.swift in Sources */,
+				63BAE6BF22DA51B5007D5369 /* UtilityFunctions.swift in Sources */,
 				63BAE6A722DA4F39007D5369 /* AppDelegate.swift in Sources */,
+				63BAE6BD22DA519B007D5369 /* Constants.swift in Sources */,
+				63BAE6C322DA5223007D5369 /* FaceOverlay.swift in Sources */,
+				63BAE6C122DA51E2007D5369 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
