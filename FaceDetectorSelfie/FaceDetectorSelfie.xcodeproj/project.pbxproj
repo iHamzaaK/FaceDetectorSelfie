@@ -16,6 +16,7 @@
 		63BAE6C122DA51E2007D5369 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C022DA51E2007D5369 /* Extensions.swift */; };
 		63BAE6C322DA5223007D5369 /* FaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C222DA5223007D5369 /* FaceOverlay.swift */; };
 		63BAE6C522DA5268007D5369 /* FaceDetectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */; };
+		63BAE6C722DA53CB007D5369 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C622DA53CB007D5369 /* PreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		63BAE6C022DA51E2007D5369 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		63BAE6C222DA5223007D5369 /* FaceOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceOverlay.swift; sourceTree = "<group>"; };
 		63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectorViewController.swift; sourceTree = "<group>"; };
+		63BAE6C622DA53CB007D5369 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */,
+				63BAE6C622DA53CB007D5369 /* PreviewViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			files = (
 				63BAE6C522DA5268007D5369 /* FaceDetectorViewController.swift in Sources */,
 				63BAE6BF22DA51B5007D5369 /* UtilityFunctions.swift in Sources */,
+				63BAE6C722DA53CB007D5369 /* PreviewViewController.swift in Sources */,
 				63BAE6A722DA4F39007D5369 /* AppDelegate.swift in Sources */,
 				63BAE6BD22DA519B007D5369 /* Constants.swift in Sources */,
 				63BAE6C322DA5223007D5369 /* FaceOverlay.swift in Sources */,
