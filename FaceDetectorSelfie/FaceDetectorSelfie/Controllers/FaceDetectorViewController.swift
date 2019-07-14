@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 import Vision
-
+import FaceCropper
 class FaceDetectorViewController: UIViewController {
-
+    var handler = VNSequenceRequestHandler()
     var previewLayer : AVCaptureVideoPreviewLayer!
     var captureDevice : AVCaptureDevice!
     var faceBoundBox : CGRect!
@@ -65,13 +65,33 @@ extension FaceDetectorViewController{
     }
     // sends cropped image to preview view controller
     func sendImageToPreviewViewController(image: UIImage){
-        DispatchQueue.main.async {
             self.didTapOnTakePicture = false
             self.captureSession.stopRunning()
-            let destinationVC = Utility.getMainStoryboard().instantiateViewController(withIdentifier: Constants.previewVCIdentifier) as! PreviewViewController
-            destinationVC.image = image
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+            DispatchQueue.global().async {
+            image.face.crop { result in
+                switch result {
+                case .success(let faces):
+                    DispatchQueue.main.async {
+                        let destinationVC = Utility.getMainStoryboard().instantiateViewController(withIdentifier: Constants.previewVCIdentifier) as! PreviewViewController
+                        destinationVC.image = faces.first!.rotate(radians: .pi/2)
+                        self.navigationController?.pushViewController(destinationVC, animated: true)
+                    }
+                    // When the `Vision` successfully find faces, and `FaceCropper` cropped it.
+                // `faces` argument is a collection of cropped images.
+                case .notFound:
+                    self.captureSession.startRunning()
+                    break
+                // When the image doesn't contain any face, `result` will be `.notFound`.
+                case .failure(let error):
+                    self.captureSession.startRunning()
+
+                    break
+                    // When the any error occured, `result` will be `failure`.
+                }
+            }
+           
         }
+        
     }
     //sets bool value to true when tapped on snap btn
     @IBAction func didTapOnSnap(){
@@ -79,7 +99,7 @@ extension FaceDetectorViewController{
     }
     
     // facial detection request
-    func vnFaceDetectionRequest(cgImage: CGImage){
+    func vnFaceDetectionRequest(pixelBuffer: CVImageBuffer){
         //check if face is detected
         let request = VNDetectFaceRectanglesRequest.init { (req, err) in
             if let err = err{
@@ -91,9 +111,8 @@ extension FaceDetectorViewController{
             }
             else{
                 // if face is detected
-                req.results?.forEach({ (res) in
-                    guard let faceObservation = res as? VNFaceObservation   else { return }
-                    DispatchQueue.main.async {
+                guard let results = req.results as? [VNFaceObservation],
+                let faceObservation = results.first else { return }
                         self.faceBoundBox =  Utility.translateFaceBoundingBoxOnView(previewLayer: self.previewLayer ,rect: faceObservation.boundingBox)
                         if self.faceOverlay.overlayFrame.contains(self.faceBoundBox){
                             self.isFaceInOverlay = true
@@ -101,14 +120,15 @@ extension FaceDetectorViewController{
                         else{
                             self.isFaceInOverlay = false
                         }
-                    }
-                })
             }
+            
         }
         //instantiate request
-        let handler = VNImageRequestHandler.init(cgImage: cgImage, options: [:])
         do {
-            try handler.perform([request])
+            try handler.perform(
+                [request],
+                on: pixelBuffer,
+                orientation: .leftMirrored)
         }
         catch{
             self.isFaceInOverlay = false
@@ -137,7 +157,6 @@ extension FaceDetectorViewController{
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.previewLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(self.previewLayer!, at: 0)
-        
     }
     
     func beginSession(){
@@ -166,6 +185,7 @@ extension FaceDetectorViewController : AVCaptureVideoDataOutputSampleBufferDeleg
     //delegate method which gives sample buffers of each frame of camera output
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
         let cameraImage = CIImage(cvPixelBuffer: pixelBuffer).oriented(.right).transformed(by: CGAffineTransform(scaleX: -1, y: 1))
         let context:CIContext = CIContext.init(options: nil)
         guard let cgImage:CGImage = context.createCGImage(cameraImage, from: cameraImage.extent) else { return }
@@ -174,7 +194,9 @@ extension FaceDetectorViewController : AVCaptureVideoDataOutputSampleBufferDeleg
             sendImageToPreviewViewController(image: uiImage)
         }
         else{
-            vnFaceDetectionRequest(cgImage: cgImage)
+            DispatchQueue.main.async {
+            self.vnFaceDetectionRequest(pixelBuffer: pixelBuffer)
+            }
         }
     }
 }
