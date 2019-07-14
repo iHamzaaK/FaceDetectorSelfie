@@ -17,9 +17,11 @@
 		63BAE6C322DA5223007D5369 /* FaceOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C222DA5223007D5369 /* FaceOverlay.swift */; };
 		63BAE6C522DA5268007D5369 /* FaceDetectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */; };
 		63BAE6C722DA53CB007D5369 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BAE6C622DA53CB007D5369 /* PreviewViewController.swift */; };
+		92E06BD941211DA55AFBF557 /* Pods_FaceDetectorSelfie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D75104F387582243A857EE /* Pods_FaceDetectorSelfie.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00065107BB85C08822AF3C1B /* Pods-FaceDetectorSelfie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceDetectorSelfie.release.xcconfig"; path = "Pods/Target Support Files/Pods-FaceDetectorSelfie/Pods-FaceDetectorSelfie.release.xcconfig"; sourceTree = "<group>"; };
 		63BAE6A322DA4F39007D5369 /* FaceDetectorSelfie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceDetectorSelfie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63BAE6A622DA4F39007D5369 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63BAE6AB22DA4F39007D5369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		63BAE6C222DA5223007D5369 /* FaceOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceOverlay.swift; sourceTree = "<group>"; };
 		63BAE6C422DA5268007D5369 /* FaceDetectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectorViewController.swift; sourceTree = "<group>"; };
 		63BAE6C622DA53CB007D5369 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		AF6F4FD171F310A91D5F2777 /* Pods-FaceDetectorSelfie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FaceDetectorSelfie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FaceDetectorSelfie/Pods-FaceDetectorSelfie.debug.xcconfig"; sourceTree = "<group>"; };
+		C0D75104F387582243A857EE /* Pods_FaceDetectorSelfie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FaceDetectorSelfie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92E06BD941211DA55AFBF557 /* Pods_FaceDetectorSelfie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +55,8 @@
 			children = (
 				63BAE6A522DA4F39007D5369 /* FaceDetectorSelfie */,
 				63BAE6A422DA4F39007D5369 /* Products */,
+				C01483E51595D96CC0C385BA /* Pods */,
+				8D29DC1FD5AC1BC59D287916 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +118,23 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
+		8D29DC1FD5AC1BC59D287916 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0D75104F387582243A857EE /* Pods_FaceDetectorSelfie.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C01483E51595D96CC0C385BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AF6F4FD171F310A91D5F2777 /* Pods-FaceDetectorSelfie.debug.xcconfig */,
+				00065107BB85C08822AF3C1B /* Pods-FaceDetectorSelfie.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -118,9 +142,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63BAE6B522DA4F3A007D5369 /* Build configuration list for PBXNativeTarget "FaceDetectorSelfie" */;
 			buildPhases = (
+				49B34873B8C858BC2E5EDE36 /* [CP] Check Pods Manifest.lock */,
 				63BAE69F22DA4F39007D5369 /* Sources */,
 				63BAE6A022DA4F39007D5369 /* Frameworks */,
 				63BAE6A122DA4F39007D5369 /* Resources */,
+				FA400889D860B239C3DFB4FB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -176,6 +202,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49B34873B8C858BC2E5EDE36 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FaceDetectorSelfie-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA400889D860B239C3DFB4FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FaceDetectorSelfie/Pods-FaceDetectorSelfie-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FaceCropper/FaceCropper.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaceCropper.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FaceDetectorSelfie/Pods-FaceDetectorSelfie-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		63BAE69F22DA4F39007D5369 /* Sources */ = {
@@ -332,11 +405,13 @@
 		};
 		63BAE6B622DA4F3A007D5369 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF6F4FD171F310A91D5F2777 /* Pods-FaceDetectorSelfie.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 586FF64QYM;
 				INFOPLIST_FILE = FaceDetectorSelfie/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,11 +425,13 @@
 		};
 		63BAE6B722DA4F3A007D5369 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00065107BB85C08822AF3C1B /* Pods-FaceDetectorSelfie.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 586FF64QYM;
 				INFOPLIST_FILE = FaceDetectorSelfie/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

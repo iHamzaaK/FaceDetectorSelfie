@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 import UIKit
-
+import CoreGraphics
 class Utility {
     static func getMainStoryboard() -> UIStoryboard{
         return UIStoryboard.init(name: Constants.mainStoryboardIdentifier, bundle: nil)
@@ -33,10 +33,10 @@ class Utility {
                                  inputImage.size.height / viewHeight)
         
         // Scale cropRect to handle images larger than shown-on-screen size
-        let cropZone = CGRect(x:cropRect.origin.x * (imageViewScale + 2),
-                              y:cropRect.origin.y * imageViewScale/2,
-                              width:cropRect.size.width * imageViewScale/3 ,
-                              height:cropRect.size.height  * imageViewScale/3)
+        let cropZone = CGRect(x:cropRect.origin.x * (imageViewScale ),
+                              y:cropRect.origin.y * imageViewScale,
+                              width:cropRect.size.width * imageViewScale ,
+                              height:cropRect.size.height  * imageViewScale)
         
         // Perform cropping in Core Graphics
         guard let cutImageRef: CGImage = inputImage.cgImage?.cropping(to:cropZone)
@@ -48,4 +48,21 @@ class Utility {
         let croppedImage: UIImage = UIImage(cgImage: cutImageRef)
         return croppedImage
     }
+    
+    static func imageCropping(imageToCrop : UIImage , toRect : CGRect) -> UIImage?{
+        UIGraphicsBeginImageContext(toRect.size)
+        let currentContext = UIGraphicsGetCurrentContext()
+        currentContext?.translateBy(x: 0.0, y: toRect.size.height)
+        currentContext?.scaleBy(x: 1.0, y: -1.0)
+        let clippedRect = CGRect(x: 0, y: 0, width: toRect.size.width, height: toRect.size.height)
+        currentContext?.clip(to: clippedRect)
+        let drawRect = CGRect(x: toRect.origin.x * -1, y: toRect.origin.y * -1, width: imageToCrop.size.width, height: imageToCrop.size.height)
+        currentContext?.draw(imageToCrop.cgImage!, in: drawRect)
+        currentContext?.scaleBy(x: 1.0, y: -1.0)
+        let croppedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return croppedImage
+        
+    }
+  
 }

@@ -43,7 +43,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="3ps-6n-GL3" firstAttribute="bottom" secondItem="hGm-Yh-ZdG" secondAttribute="bottom" constant="34" id="P30-cS-EoP"/>
+                            <constraint firstItem="3ps-6n-GL3" firstAttribute="bottom" secondItem="hNv-kr-TH6" secondAttribute="bottom" id="P30-cS-EoP"/>
                             <constraint firstItem="3ps-6n-GL3" firstAttribute="width" secondItem="hNv-kr-TH6" secondAttribute="width" id="V7Q-Hy-AY6"/>
                             <constraint firstItem="3ps-6n-GL3" firstAttribute="centerX" secondItem="hGm-Yh-ZdG" secondAttribute="centerX" id="xoZ-dq-PB9"/>
                         </constraints>

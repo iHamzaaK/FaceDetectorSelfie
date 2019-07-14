@@ -38,7 +38,6 @@ class FaceDetectorViewController: UIViewController {
         self.view.addSubview(faceOverlay)
         isFaceInOverlay = false
         setupCamera()
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         //start capture session
@@ -70,7 +69,7 @@ extension FaceDetectorViewController{
             self.didTapOnTakePicture = false
             self.captureSession.stopRunning()
             let destinationVC = Utility.getMainStoryboard().instantiateViewController(withIdentifier: Constants.previewVCIdentifier) as! PreviewViewController
-            destinationVC.image = Utility.cropImage(image, toRect: self.faceOverlay.overlayFrame, viewWidth: self.previewLayer.frame.size.width, viewHeight:  self.previewLayer.frame.size.width)!
+            destinationVC.image = image
             self.navigationController?.pushViewController(destinationVC, animated: true)
         }
     }
@@ -121,7 +120,7 @@ extension FaceDetectorViewController{
     //capture session setup
     func setupCamera(){
         //for high definition video output
-        captureSession.sessionPreset = AVCaptureSession.Preset.hd1920x1080
+        captureSession.sessionPreset = AVCaptureSession.Preset.high
         // camera setup for front camera only
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera,
                                                    for: .video,
@@ -136,8 +135,7 @@ extension FaceDetectorViewController{
     func setupPreviewLayer(){
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        self.previewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-        self.previewLayer.frame = self.view.frame
+        self.previewLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(self.previewLayer!, at: 0)
         
     }
@@ -153,10 +151,11 @@ extension FaceDetectorViewController{
         let dataOutput = AVCaptureVideoDataOutput()
         dataOutput.setSampleBufferDelegate(self, queue: queue)
         dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value:kCVPixelFormatType_32BGRA)] as [String : Any]
-        dataOutput.alwaysDiscardsLateVideoFrames = true
         if captureSession.canAddOutput(dataOutput){
             captureSession.addOutput(dataOutput)
         }
+        let videoConnection = dataOutput.connection(with: .video)
+        videoConnection?.videoOrientation = .portrait
         captureSession.commitConfiguration()
         self.setupPreviewLayer()
     }
@@ -166,11 +165,11 @@ extension FaceDetectorViewController{
 extension FaceDetectorViewController : AVCaptureVideoDataOutputSampleBufferDelegate{
     //delegate method which gives sample buffers of each frame of camera output
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        let cameraImage = CIImage(cvPixelBuffer: pixelBuffer!).oriented(.right).transformed(by: CGAffineTransform(scaleX: -1, y: 1))
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        let cameraImage = CIImage(cvPixelBuffer: pixelBuffer).oriented(.right).transformed(by: CGAffineTransform(scaleX: -1, y: 1))
         let context:CIContext = CIContext.init(options: nil)
         guard let cgImage:CGImage = context.createCGImage(cameraImage, from: cameraImage.extent) else { return }
-        let uiImage = UIImage(cgImage: cgImage)
+        let uiImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
         if didTapOnTakePicture{
             sendImageToPreviewViewController(image: uiImage)
         }
